@@ -99,5 +99,128 @@ echo $browser . $version . $platform;
 // get current file name
 echo basename($_SERVER['PHP_SELF']) . "<br />";
 
+// ===============================================================================
+
+// check if page is called from http or https
+if (! empty($_SERVER['HTTPS'])) {
+    echo 'https is enabled' . "<br />";
+} else {
+    echo 'http is enabled' . "<br />";
+}
+
+// =================================================================================
+
+// get last modified information of a file
+$currentFileName = basename($_SERVER['PHP_SELF']);
+$fileLastModified = filemtime($currentFileName);
+
+// l = A full textual representation of the day of the week
+// d = dat of the month, 2 digits with leading zeroes + S = English ordinal suffix for the day of the month, 2 characters, so the 'th' in 7th
+// F = A full textual representation of a month, such as January or March
+// Y = A full numeric representation of a year, 4 digits
+// h = 12-hour format of an hour with leading zeros
+// i = Minutes with leading zeros
+// a = Lowercase Ante meridiem and Post meridiem
+echo "Last modified " . date("l, dS F, Y, h:ia", $fileLastModified) . "<br />";
+// hadn't initiall set timezone in php.ini, so it was giving me the wrong date/time
+echo date_default_timezone_get();
+
+// ====================================================================================
+// table display
+$a = 1000;
+$b = 1200;
+$c = 1400;
+echo "<table border=1 cellspacing=0 cellpading=0>
+<tr> <td><font color=blue>Salary of Mr. A is</td> <td>$a$</font></td></tr>
+<tr> <td><font color=blue>Salary of Mr. B is</td> <td>$b$</font></td></tr>
+<tr> <td><font color=blue>Salary of Mr. C is</td> <td>$c$</font></td></tr>
+</table>";
+
+// =================================================================================
+
+// delays
+// current time
+echo date('h:i:s') . "<br />";
+
+// prints everything it can up to this point, otherwise it won't print anything until after the delay ends
+ob_end_flush();
+flush();
+
+// sleep for 1 seconds
+sleep(1);
+// wake up
+echo date('h:i:s') . "<br />";
+
+// ================================================================================
+/*
+ * php lets you increment a number in a string, if it is at the end of the string in this case you only need
+ */
+$d = 'A00';
+for ($n = 0; $n < 5; $n ++) {
+    echo ++ $d . "<br />";
+}
+
+// ==============================================================================
+
+// remove duplicates from a list
+function removeDuplicates($list)
+{
+    $numsUnique = array_values(array_unique($list));
+    return $numsUnique;
+}
+$nums = array(
+    1,
+    1,
+    2,
+    2,
+    3,
+    4,
+    5,
+    5
+);
+print_r(removeDuplicates($nums));
+
+echo "<br />";
+
+// ==================================================================================
+// multiply coressponding elements of 2 lists.
+function multiplyList($listA, $listB)
+{
+    if (count($listA) < count($listB)) {
+        for ($i = 0; $i < count($listA); $i ++) {
+            echo $listA[$i] * $listB[$i] . "<br />";
+        }
+    } else {
+        for ($i = 0; $i < count($listB); $i ++) {
+            echo $listA[$i] * $listB[$i] . "<br />";
+        }
+    }
+}
+
+$a = array(
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+);
+
+$b = array(
+    5,
+    4,
+    3,
+    2,
+    1,
+    2,
+    3,
+    4
+);
+
+multiplyList($a, $b);
 
 ?>
